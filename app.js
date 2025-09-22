@@ -1,6 +1,6 @@
 import express from 'express'
 import 'dotenv/config';
-import { dbConnection } from './database/dbConnection.js';
+import { dbConnection } from './src/database/dbConnection.js';
 const app = express()
 const PORT =  process.env.PORT ?? 8080;
 
