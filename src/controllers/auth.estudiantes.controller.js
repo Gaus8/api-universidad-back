@@ -4,12 +4,12 @@ import { validarRegistro, validarLogin } from '../../schemas/validarDatos.js';
 import { generarTokenVerificacion, enviarCorreoVerificacion } from '../../middleware/validarEmail.js';
 import jwt from 'jsonwebtoken';
 
-const buscarEstudiante = async (email) => {
+const buscarUsuario = async (email) => {
   try {
-    const estudiante = await Usuario.findOne({ email });
-    return estudiante ?? null;
+    const usuario = await Usuario.findOne({ email });
+    return usuario ?? null;
   } catch (err) {
-    console.error('Error al buscar estudiante:', err);
+    console.error('Error al buscar usuario:', err);
     return null;
   }
 };
@@ -27,7 +27,7 @@ export const registroEstudiante = async (req, res) => {
     try {
 
       const { name, email, password } = validarDatos.data;
-      const validarEstudiante = await buscarEstudiante(email);
+      const validarEstudiante = await buscarUsuario(email);
       const tokenValidacion = generarTokenVerificacion();
 
 
@@ -73,7 +73,7 @@ export const loginEstudiante = async (req, res) => {
   }
   else {
     const { email, password } = validarDatos.data;
-    const estudiante = await buscarEstudiante(email);
+    const estudiante = await buscarUsuario(email);
 
     if (estudiante === null) {
       return res.status(404).json({
