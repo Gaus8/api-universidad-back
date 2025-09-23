@@ -9,7 +9,7 @@ export const dbConnection = async () => {
     console.log(`connection stablished, database name: ${dbName}`)
   }
   catch(error){
-    handleError(error);
+    console.log(error);
   }
  
 

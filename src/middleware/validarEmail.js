@@ -31,8 +31,9 @@ export const enviarCorreoVerificacion = async (usuario, token) => {
 
   try {
     await transporter.sendMail(mailOptions);
+    return "success";
   } catch (error) {
-    console.log("error al enviar el mensaje")
+    return "error";
   }
 };
 

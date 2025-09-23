@@ -1,5 +1,5 @@
 import express from 'express';
-import { registroEstudiante, loginEstudiante, verificarCuenta } from '../controllers/estudiantes/auth.estudiantes.controller.js';
+import { registroEstudiante, loginEstudiante, verificarCuenta } from '../controllers/auth.estudiantes.controller.js';
 
 export const routerEstudiante = express.Router();
 

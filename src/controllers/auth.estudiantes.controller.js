@@ -1,6 +1,6 @@
 import Usuario from '../schemas/esquemaUsuario.js';
 import bcrypt from 'bcrypt';
-import { validarRegistro, validarLogin } from '../../schemas/validarDatos.js';
+import { validarRegistro, validarLogin } from '../schemas/validarDatos.js';
 import { generarTokenVerificacion, enviarCorreoVerificacion } from '../middleware/validarEmail.js';
 import jwt from 'jsonwebtoken';
 
@@ -46,16 +46,27 @@ export const registroEstudiante = async (req, res) => {
         verificationToken: tokenValidacion
       };
 
-        await enviarCorreoVerificacion(nuevoRegistro, tokenValidacion);
-      const sendMessage = await Usuario.create(nuevoRegistro); //Guardar el nuevo usuario en la base de datos
-    
+      const enviarCorreo = await enviarCorreoVerificacion(nuevoRegistro, tokenValidacion)
+      if (enviarCorreo !== "error") {
+        const sendMessage = await Usuario.create(nuevoRegistro);
+        if (sendMessage) {
+          return res.status(201).json({
+            status: "success",
+            message: 'Usuario Registrado con Éxito'
+          })
+        }
+      } else {
 
-      if (sendMessage) {
-        return res.status(201).json({
-          status: "success",
-          message: 'Usuario Registrado con Éxito'
+        return res.status(500).json({
+          status: "error",
+          message: 'ERROR INTERNO: Fallo en la validacion'
         })
+
       }
+      //Guardar el nuevo usuario en la base de datos
+
+
+
 
     } catch (err) {
       console.log(err);
