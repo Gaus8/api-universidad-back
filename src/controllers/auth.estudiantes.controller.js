@@ -1,7 +1,7 @@
 import Usuario from '../schemas/esquemaUsuario.js';
 import bcrypt from 'bcrypt';
 import { validarRegistro, validarLogin } from '../../schemas/validarDatos.js';
-import { generarTokenVerificacion, enviarCorreoVerificacion } from '../../middleware/validarEmail.js';
+import { generarTokenVerificacion, enviarCorreoVerificacion } from '../middleware/validarEmail.js';
 import jwt from 'jsonwebtoken';
 
 const buscarUsuario = async (email) => {
